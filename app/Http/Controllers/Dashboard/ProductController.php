@@ -40,18 +40,9 @@ class ProductController extends Controller
         return view('dashboard.products.edit', compact('product'));
     }
 
-    public function update(request $request, Product $product)
+    public function update(ProductRequest $request , Product $product)
     {
-        $attributes = $request->validate([
-            'name' => ['required', 'max:255'],
-            'description' => ['required', 'max:255'],
-            'price' => ['required', 'max:15'],
-            'price_after_discount' => ['max:15', 'nullable'],
-            'stock_quantity' => ['required'],
-            'sku' => ['required', 'unique:products,sku,' . $product->id],
-            'image' => ['nullable', 'image'],
-        ]);
-
+        $attributes = $request->validated();
         if (request()->file('image'))
             $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'products');
 
