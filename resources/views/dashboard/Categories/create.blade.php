@@ -54,6 +54,34 @@
                         <!-- begin :: Column -->
                         <div class="col-md-12 text-center mb-5 fv-row">
 
+                            <div class="image-input image-input-empty" data-kt-image-input="true"
+                                 style="background-image: url('{{ asset('dashboard-assets/media/avatars/blank.png') }}')">
+                                <!--begin::Image preview wrapper-->
+                                <div class="image-input-wrapper w-125px h-125px"></div>
+                                <!--end::Image preview wrapper-->
+
+                                <!--begin::Edit button-->
+                                <label
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                    data-kt-image-input-action="change"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-dismiss="click"
+                                    title="Change avatar">
+                                    <i class="bi bi-pencil-fill fs-7"></i>
+
+                                    <!--begin::Inputs-->
+                                    <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
+                                    <input type="hidden" name="avatar_remove"/>
+                                    <!--end::Inputs-->
+                                </label>
+                                <!--end::Edit button-->
+
+                            </div>
+                            @error('image')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+
+
                         </div>
                         <!-- end   :: Column -->
 

@@ -33,31 +33,27 @@ Route::get('/shop', ShopComponent::class)->name('shop');
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 Route::get('/productCategory/{slug}', CategoryComponent::class)->name('product_category');
 Route::get('/product.search', SearchComponent::class)->name('product.search');
-Route::get('/Contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact_store', [ContactController::class, 'store'])->name('contact.store');
 
+/*Contact*/
+Route::resource('contact', ContactController::class)->only('index', 'store');
 
-Route::middleware('auth:web')->group(function () {
-    Route::get('/cart', CartComponent::class)->name('shop.cart');
-    Route::get('/wishlist', WishlistComponent::class)->name('wishlist');
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-    Route::post('/PlaceOrder', [OrderController::class, 'store'])->name('place_order');
-    Route::get('/MyOrders', [OrderController::class, 'index'])->name('MyOrders');
-    Route::get('view-order/{id}', [OrderController::class, 'show']);
-
-
-});
-
-Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admins.login');
-Route::post('/admin/login', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
-Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
-
-
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth']], function () {
+    /* User Profile*/
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    /*Cart And Wishlist */
+    Route::get('/cart', CartComponent::class)->name('shop.cart');
+    Route::get('/wishlist', WishlistComponent::class)->name('wishlist');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    /* Orders*/
+    Route::get('/orderPdf/{id}', [OrderController::class, 'OrderPdf'])->name('order_pdf');
+    Route::resource('order', OrderController::class)->only('index', 'store', 'show');
 });
+/*Admin Login*/
+Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admins.login');
+Route::post('/admin/login', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 
 require __DIR__ . '/auth.php';

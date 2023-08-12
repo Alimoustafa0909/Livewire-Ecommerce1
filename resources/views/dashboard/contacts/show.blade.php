@@ -44,7 +44,7 @@
 
                                 <label class="fs-5 fw-bold mb-2">Name</label>
                                 <div class="form-floating">
-                                    <input type="text" disabled class="form-control" value="{{ $contact->first_name }}" >
+                                    <input type="text" disabled class="form-control" value="{{ $contact->name }}" >
 
                                 </div>
                                 @error('first_name')
@@ -55,21 +55,6 @@
                             </div>
                             <!-- end   :: Column -->
 
-                            <!-- begin :: Column -->
-                            <div class="col-md-6 fv-row">
-
-                                <label class="fs-5 fw-bold mb-2">Last Name</label>
-                                <div class="form-floating">
-                                    <input type="text" disabled class="form-control"  value="{{ $contact->last_name }}" />
-
-                                </div>
-                                @error('last_name')
-                                <p class="text-danger">{{ $message }}</p>
-                                @enderror
-
-
-                            </div>
-                            <!-- end   :: Column -->
 
                         </div>
                         <!-- end   :: Row -->
@@ -97,7 +82,7 @@
 
                                 <label class="fs-5 fw-bold mb-2">Message</label>
                                 <div class="form-floating">
-                                    <input type="text" disabled class="form-control" value="{{ $contact->message }}" >
+                                    <input type="text" disabled class="form-control" value="{{substr($contact->message,0,20)}}" >
 
                                 </div>
                                 @error('message')

@@ -32,7 +32,7 @@
                                     <td>{{ $item ->total_price}}</td>
                                     <td>{{ $item ->status=='0' ?'Pending': 'Delivered Succ' }}</td>
                                     <td>
-                                        <a href="{{url('view-order/'.$item->id)}}" class="btn btn-light-dark"> View</a>
+                                        <a href="{{route('order.show',[$item->id])}}" class="btn btn-light-dark"> View</a>
                                     </td>
                                 </tr>
                             @endforeach

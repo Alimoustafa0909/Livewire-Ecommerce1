@@ -17,5 +17,6 @@ class Admin extends Authenticatable
         'password',
         // other fillable properties...
     ];
+    
     // Rest of the code
 }

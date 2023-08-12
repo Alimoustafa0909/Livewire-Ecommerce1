@@ -21,6 +21,26 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+
+
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function store(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        if (Auth::check()) {
+            Cart::instance('cart')->restore(Auth::id());
+            Cart::instance('wishlist')->restore(Auth::id());
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+    }
+
+
     /**
      * Destroy an authenticated session.
      */
@@ -42,21 +62,5 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
-
-        if (Auth::check()) {
-            Cart::instance('cart')->restore(Auth::id());
-            Cart::instance('wishlist')->restore(Auth::id());
-        }
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
 
 }

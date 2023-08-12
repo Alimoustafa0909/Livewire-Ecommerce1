@@ -6,16 +6,8 @@
                     <div class="header-info">
                         <ul>
                             <li>
-                                <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
-                                        class="fi-rs-angle-small-down"></i></a>
-                                <ul class="language-dropdown">
-                                    <li><a href="#"><img src="{{asset('assets/imgs/theme/flag-fr.png')}}" alt="">Français</a>
-                                    </li>
-                                    <li><a href="#"><img src="{{asset('assets/imgs/theme/flag-dt.png')}}" alt="">Deutsch</a>
-                                    </li>
-                                    <li><a href="#"><img src="{{asset('assets/imgs/theme/flag-ru.png')}}" alt="">Pусский</a>
-                                    </li>
-                                </ul>
+                                <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English
+                                       </a>
                             </li>
                         </ul>
                     </div>
@@ -91,12 +83,12 @@
                                 <li><a href="{{route('shop')}}">Shop</a></li>
 
                                 <li>
-                                    <a href="{{route('contact')}}">Contact</a>
+                                    <a href="{{route('contact.index')}}">Contact</a>
                                 </li>
 
                                 <li>
                                     @auth
-                                        <a href="{{route('MyOrders')}}">My Orders</a>
+                                        <a href="{{route('order.index')}}">My Orders</a>
                                     @endif
                                 </li>
                                 <li>

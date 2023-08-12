@@ -44,7 +44,7 @@
                                         <td class="product-des product-name">
                                             <h5 class="product-name"><a href="product-details.html">{{$item->model->name}}</a></h5>
                                         </td>
-                                        <td class="price" data-title="Price"><span>${{$item->model->regular_price}} </span></td>
+                                        <td class="price" data-title="Price"><span>${{number_format($item->model->sale_price)}} </span></td>
                                         <td class="text-center" data-title="Stock">
                                             <div class="detail-qty border radius  m-auto">
                                                 <a href="#" class="qty-down" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-down"></i></a>
@@ -53,7 +53,7 @@
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
-                                            <span>${{$item->subtotal}} </span>
+                                            <span>${{ number_format($item->model->sale_price * $item->qty)}} </span>
                                         </td>
                                         <td class="action"  data-title="Remove" wire:click.prevent="DeleteItem('{{$item->rowId}}')"><a href="#" class="text-muted"><i
                                                         class="fi-rs-trash"></i></a></td>
@@ -73,65 +73,10 @@
                                     @endif
                         </div>
                         <div class="cart-action text-end">
-                            <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
                             <a class="btn" href="{{route('shop')}}" > <i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
                         <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="heading_s1 mb-3">
-                                    <h4>Calculate Shipping</h4>
-                                </div>
-                                <p class="mt-15 mb-30">Flat rate: <span class="font-xl text-brand fw-900">5%</span></p>
-                                <form class="field_form shipping_calculator">
-                                    <div class="form-row">
-                                        <div class="form-group col-lg-12">
-                                            <div class="custom_select">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row row">
-                                        <div class="form-group col-lg-6">
-                                            <input required="required" placeholder="State / Country" name="name"
-                                                   type="text">
-                                        </div>
-                                        <div class="form-group col-lg-6">
-                                            <input required="required" placeholder="PostCode / ZIP" name="name"
-                                                   type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-lg-12">
-                                            <button class="btn  btn-sm"><i class="fi-rs-shuffle mr-10"></i>Update
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="mb-30 mt-50">
-                                    <div class="heading_s1 mb-3">
-                                        <h4>Apply Coupon</h4>
-                                    </div>
-                                    <div class="total-amount">
-                                        <div class="left">
-                                            <div class="coupon">
-                                                <form action="#" target="_blank">
-                                                    <div class="form-row row justify-content-center">
-                                                        <div class="form-group col-lg-6">
-                                                            <input class="font-medium" name="Coupon"
-                                                                   placeholder="Enter Your Coupon">
-                                                        </div>
-                                                        <div class="form-group col-lg-6">
-                                                            <button class="btn  btn-sm"><i
-                                                                        class="fi-rs-label mr-10"></i>Apply
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="border p-md-4 p-30 border-radius cart-totals">
                                     <div class="heading_s1 mb-3">
@@ -147,7 +92,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="cart_total_label">Tax</td>
-                                                <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">${{Cart::tax()}}</span>
+                                                <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">${{Cart::tax(0)}}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -158,7 +103,7 @@
                                             <tr>
                                                 <td class="cart_total_label">Total</td>
                                                 <td class="cart_total_amount"><strong><span
-                                                                class="font-xl fw-900 text-brand">${{Cart::total()}}</span></strong>
+                                                                class="font-xl fw-900 text-brand">${{Cart::total()}} </span></strong>
                                                 </td>
                                             </tr>
                                             </tbody>

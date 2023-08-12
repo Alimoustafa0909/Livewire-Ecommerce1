@@ -152,6 +152,21 @@
                         </div>
 
 
+                        <div class="col-md-6 fv-row" id="children-categories-container">
+                            <label class="fs-5 fw-bold mb-2">Featured</label>
+                            <select class="form-select" name="featured" data-control="select2" multiple
+                                    data-placeholder="Select an option">
+                                <option value="1">1</option>
+                                <option value="0"> 0</option>
+                            </select>
+
+                            @error('featured')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+
+
                         <!-- end   :: Column -->
 
                         <!-- begin :: Column -->

@@ -6,7 +6,7 @@ use App\Helpers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
-use App\Models\Orders;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,13 +20,12 @@ class OrderController extends Controller
         $orders = Order::where('user_id', Auth::id())->get();
         return view('web.order.index', compact('orders'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+     //
     }
 
     /**
@@ -52,9 +51,11 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function OrderPdf($id)
     {
-        //
+        $orders = Order::findorfail($id);
+        $pdf = PDF::loadView('web.order.pdf',compact('orders'));
+        return $pdf->download();
     }
 
     /**
@@ -65,9 +66,6 @@ class OrderController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

@@ -17,11 +17,9 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
   {
-
          $request->validated();
       (new Helpers)->contactMessage($request);
-       return redirect(route('contact'))->with('success', 'Your message has been sent successfully!');
-
+       return redirect(route('contact.index'))->with('success', 'Your message has been sent successfully!');
 
     }
 }

@@ -15,24 +15,15 @@
         </div>
 
 
-        @if (session('success'))
-            <div class="col-sm-12">
-                <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-        @endif
+
 
         <section class="pt-50 pb-50">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-10 m-auto">
                         <div class="contact-from-area padding-20-row-col wow FadeInUp">
-                            <h3 class="mb-10 text-center">Drop Us a Line</h3>
-                            <p class="text-muted mb-30 text-center font-sm">Lorem ipsum dolor sit amet consectetur.</p>
+                            <h3 class="mb-10 text-center">Send message to Us</h3>
+                            <p class="text-muted mb-30 text-center font-sm">Don't hestite to send an message if you have wonder on anything </p>
                             <form class="contact-form-style text-center" id="contact-form"
                                   action="{{route('contact.store')}}" method="POST">
                                 @csrf

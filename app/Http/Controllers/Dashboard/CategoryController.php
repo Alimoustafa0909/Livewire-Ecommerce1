@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Helpers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
@@ -25,17 +26,14 @@ class CategoryController extends Controller
         return view('dashboard.categories.edit', compact('category', 'categories'));
     }
 
-    public function destroy(Category $category)
-    {
-        $category->delete();
-        return redirect()->route('dashboard.categories.index')->with('success_message', 'the category has been deleted successfully');
-
-    }
 
     public function store(CategoryRequest $request)
     {
 
         $attributes = $request->validated();
+
+        $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'categories');
+
         $category = Category::create($attributes);
 
         foreach ($request->categories ?? [] as $categoryId)
@@ -59,4 +57,10 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories.index')->with('success_message', 'The category has been Added successfully');
     }
 
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('dashboard.categories.index')->with('success_message', 'the category has been deleted successfully');
+
+    }
 }

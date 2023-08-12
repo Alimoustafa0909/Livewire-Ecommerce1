@@ -67,6 +67,7 @@
                 <!--begin::Table row-->
                 <tr class="text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                     <th class="min-w-125px">ID</th>
+                    <th class="min-w-125px">Image</th>
                     <th class="min-w-125px">Category Name</th>
                     <th class="min-w-125px">Slug</th>
                     <th class="min-w-70px">Actions</th>
@@ -81,6 +82,11 @@
                         <!--begin::ID=-->
                         <td>
                             {{ $category->id }}
+                        </td>
+
+                        <td>
+                            <img src="{{ asset('storage/images/categories/' . $category['image']) }}" width="70"
+                                 height="70">
                         </td>
                         <!--end::ID=-->
                         <!--begin::name=-->

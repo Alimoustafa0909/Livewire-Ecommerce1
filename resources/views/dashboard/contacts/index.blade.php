@@ -34,7 +34,6 @@
                 <!--begin::Table row-->
                 <tr class="text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                     <th class="min-w-125px">First Name</th>
-                    <th class="min-w-125px">Last Name</th>
                     <th class="min-w-125px">Subject</th>
                     <th class="min-w-125px">Message</th>
                     <th class="min-w-70px">Actions</th>
@@ -48,13 +47,11 @@
                     <tr>
                         <!--begin::FirstName=-->
                         <td>
-                         {{ $contact->first_name }}
+                         {{ $contact->name }}
                         </td>
                         <!--end::FirstName=-->
                         <!--begin::LastName=-->
-                        <td>
-                         {{ $contact->last_name }}
-                        </td>
+
                         <!--end::LastName=-->
                         <!--begin::Subject=-->
                         <td>

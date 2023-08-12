@@ -53,7 +53,7 @@ class ProductController extends Controller
         ]);
 
         if (request()->file('image'))
-            $attributes['image'] = uploadImage($request->file('image'), 'products');
+            $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'products');
 
         $product->update($attributes);
 

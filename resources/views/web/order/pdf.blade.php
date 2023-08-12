@@ -1,44 +1,36 @@
-@extends('layouts.master')
-@push('styles')
 
-@endpush
-
-@section('content')
 
     <div class="container py-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header ">
-                        <h4 class="text-black-50">Show Order</h4>
+                        <h4 class="text-black-50">Your Order</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 order_details">
                                 <h4>Shipping Details</h4>
                                 <hr>
-                                <label for="">  Name</label>
-                                <div class="border">{{$orders->name}} </div>
-                                <br>
-                                <label for=""> Email</label>
-                                <div class="border">{{$orders->email}} </div>
-                                <br>
-                                <label for=""> Contact No.</label>
-                                <div class="border">{{$orders->phone}} </div>
-                                <br>
-                                <label for=""> Tracking No.</label>
-                                <div class="border">{{$orders->tracking_no}} </div>
-                                <br>
+                                <label for="">  Name: {{$orders->name}}</label>
+<br><br>
+                                <label for=""> Email: {{$orders->email}}</label>
+                                <br><br>
+                                <label for=""> Contact No: {{$orders->phone}}</label>
+                                <br><br>
 
-                                <label for="">Shipping Address</label>
-                                <div class="border">
-                                    {{$orders->address}} @php print ','@endphp
+                                <label for=""> Tracking No.: {{$orders->tracking_no}}</label>
+
+                                <br><br>
+
+                                <label for="">Shipping Address:   {{$orders->address}} @php print ','@endphp
                                     {{$orders->city}} @php print ','@endphp
-                                    {{$orders->country}}
+                                    {{$orders->country}}</label>
+
+                                <br><br>
                                 </div>
-                                <br>
-                                <label for=""> Zip Code</label>
-                                <div class="border p-2">{{$orders->postal_code}} </div>
+                                <label for=""> Zip Code: {{$orders->postal_code}}</label>
+                            <br><br>
 
                             </div>
                             <div class="col-md-6">
@@ -48,7 +40,7 @@
                                     <thead>
                                     <tr>
                                         <th> Name</th>
-                                        <th> Quantity</th>
+                                        <th> Qty</th>
                                         <th> Price</th>
                                         <th> Image</th>
                                     </tr>
@@ -57,11 +49,13 @@
                                     @foreach($orders->orderItems as $item)
                                         <tr>
                                             <td>{{$item->products->name}}</td>
+
                                             <td>{{$item->product_quantity}}</td>
+
                                             <td>{{$item->product_price * $item->product_quantity}}</td>
 
                                             <td>
-                                                <img src="{{ asset('storage/images/products/' . $item->products['image']) }}"
+                                                <img src="{{ storage_path('app/public/images/products/' . $item->products['image']) }}"
                                                      width="75" height="75">
                                             </td>
                                         </tr>
@@ -69,7 +63,6 @@
                                     </tbody>
                                 </table>
                                 <h4 class="px-2">  Total Price: <span > ${{$orders->total_price}}</span>  </h4>
-                                <a href="{{route('order_pdf', [$orders->id])}}" class="btn btn-danger float-end"> Download PDF</a>
 
                             </div>
                         </div>
@@ -78,6 +71,3 @@
             </div>
         </div>
     </div>
-@endsection
-@push('scripts')
-@endpush

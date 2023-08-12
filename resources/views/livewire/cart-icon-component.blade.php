@@ -16,7 +16,7 @@
                         </div>
                         <div class="shopping-cart-title">
                             <h4><a href="{{route('product.details',$item->model->slug)}}">{{substr($item->model->name,0,20)}}...</a></h4>
-                            <h4><span>{{$item->qty}} × </span>${{$item->model->sale_price}}</h4>
+                            <h4><span>{{$item->qty}} × </span>${{number_format( $item->model->regular_price)}}</h4>
                         </div>
                         <div class="shopping-cart-delete">
                             <a href="#"><i class="fi-rs-cross-small"></i></a>
@@ -27,11 +27,10 @@
         </ul>
         <div class="shopping-cart-footer">
             <div class="shopping-cart-total">
-                <h4>Total <span>${{Cart::instance('cart')->subtotal()}}</span></h4>
+                <h4>Total <span>${{Cart::Subtotal()}}</span></h4>
             </div>
             <div class="shopping-cart-button">
                 <a href="/cart" class="outline">View cart</a>
-                <a href="checkout.html">Checkout</a>
             </div>
         </div>
     </div>

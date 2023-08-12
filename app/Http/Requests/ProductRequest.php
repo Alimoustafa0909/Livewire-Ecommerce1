@@ -30,6 +30,7 @@ class ProductRequest extends FormRequest
             'sale_price' => ['max:15', 'nullable'],
             'stock_status' => ['required'],
             'quantity' => ['required'],
+            'featured' => ['required'],
             'SKU' => ['required', 'unique:products'],
             'image' => ['required', 'image'],
             'category_id' => ['required']

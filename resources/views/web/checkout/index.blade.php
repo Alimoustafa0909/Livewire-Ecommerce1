@@ -18,7 +18,7 @@
 
         <section class="mt-50 mb-50">
             <div class="container">
-                <form method="post" action="{{route('place_order')}}">
+                <form method="post" action="{{route('order.store')}}">
                     {{ csrf_field() }}
 
                 <div class="row">

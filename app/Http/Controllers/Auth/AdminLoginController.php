@@ -44,8 +44,4 @@ class AdminLoginController extends Controller
         return view('dashboard.index');
     }
 
-    public function selection()
-    {
-        return view('auth.selection');
-    }
 }
