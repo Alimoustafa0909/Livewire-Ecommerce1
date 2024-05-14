@@ -142,18 +142,26 @@
                                 </table>
 
                             </div>
-                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
-                            <div class="payment_method">
-                                <div class="mb-25">
-                                    <h5>Payment</h5>
-                                </div>
-
-                            </div>
                             <button  type="submit" class="btn btn-fill-out btn-block mt-30">Place Order</button>
+
                         </div>
                     </div>
                 </div>
                 </form>
+
+                <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+
+
+                <div class="payment_method">
+
+
+                    <form  action="{{route('payment')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="amount" value={{Cart::total()}}>
+                        <button  type="submit" class="btn btn-fill-out btn-block mt-30">Pay With Paypal</button>
+                    </form>
+
+                </div>
 
             </div>
 

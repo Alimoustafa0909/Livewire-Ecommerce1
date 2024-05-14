@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Web\CheckoutController;
 use App\Http\Controllers\Web\ContactController;
 use App\Http\Controllers\Web\OrderController;
+use App\Http\Controllers\Web\PaymentController;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\SearchComponent;
@@ -54,6 +55,11 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admins.login');
 Route::post('/admin/login', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+/*Payment Gateway*/
+Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);
 
 
 require __DIR__ . '/auth.php';
