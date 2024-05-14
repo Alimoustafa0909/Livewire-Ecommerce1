@@ -47,8 +47,7 @@
                     <th class="min-w-125px">Image</th>
                     <th class="min-w-125px">Title</th>
                     <th class="min-w-125px">Body</th>
-                    <th class="min-w-125px">Button Text</th>
-                    <th class="min-w-125px">Button URL</th>
+                    <th class="min-w-125px">Type</th>
                     <th class="min-w-70px">Actions</th>
                 </tr>
                 <!--end::Table row-->
@@ -60,33 +59,27 @@
                     <tr>
                         <!--begin:: ID =-->
                         <td>
-                             {{ $slider['id'] }}
+                            {{ $slider['id'] }}
                         </td>
                         <!--end:: ID =-->
                         <!--begin:: Image -->
                         <td>
-                                <img src="{{  asset('storage/Images/Sliders/' . $slider['image']) }}" width="50" height="50" >
+                            <img src="{{  asset('storage/Images/Sliders/' . $slider['image']) }}" width="50" height="50" >
                         </td>
                         <!--end:: Image -->
                         <!--begin::title=-->
                         <td>
-                          {{ $slider->title }}
+                            {{ $slider->title }}
                         </td>
                         <!--end::title=-->
                         <!--begin::body=-->
                         <td>
-                         {{ $slider->body }}
+                            {{ $slider->body }}
+                        </td>
+                        <td>
+                            {{ $slider->type }}
                         </td>
                         <!--end::body=-->
-                        <!--begin::button text=-->
-                        <td>
-                            {{ $slider->button_text }}
-                        </td>
-                        <!--end::button text=-->
-                        <!--begin::button url=-->
-                        <td>{{ $slider->button_url }}
-                        </td>
-                        <!--end::button url=-->
                         <!--begin::Action=-->
                         <td>
                             <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">Actions

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -22,11 +23,10 @@ class SliderController extends Controller
             'title' => ['max:255'],
             'body' => ['max:255'],
             'image' => ['required', 'image'],
-            'button_text' => ['max:15', 'nullable'],
-            'button_url' => ['nullable', 'url'],
+            'type'=> ['required']
         ]);
 
-        $attributes['image'] = uploadImage($request->file('image'), 'Sliders');
+        $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'Sliders');
 
         Slider::create($attributes);
 
@@ -49,13 +49,11 @@ class SliderController extends Controller
             'title' => ['max:255'],
             'body' => ['max:255'],
             'image' => ['image'],
-            'button_text' => ['max:15', 'nullable'],
-            'button_url' => ['nullable', 'url'],
         ]);
 
 
         if (request()->file('image'))
-            $attributes['image'] = uploadImage($request->file('image'), 'Sliders');
+            $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'Sliders');
 
         $slider->update($attributes);
 

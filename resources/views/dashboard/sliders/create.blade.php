@@ -35,8 +35,8 @@
             <!-- begin :: Form -->
             <form action="{{ route('dashboard.sliders.store') }}" class="form" method="post"
                   enctype="multipart/form-data">
-            @csrf
-            <!-- begin :: Card header -->
+                @csrf
+                <!-- begin :: Card header -->
                 <div class="card-header d-flex align-items-center">
                     <h3 class="fw-bolder text-dark"> Add Slider</h3>
                 </div>
@@ -133,29 +133,17 @@
                     <div class="row mb-8">
 
                         <!-- begin :: Column -->
-                        <div class="col-md-6 fv-row">
 
-                            <label class="fs-5 fw-bold mb-2">Button text</label>
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="email_inp" name="button_text"
-                                       placeholder="example" value="{{ old('button_text') }}">
-                                <label for="email_inp">Button text</label>
-                            </div>
-                            @error('button_text')
-                            <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <!-- end   :: Column -->
-                        <!-- begin :: Column -->
-                        <div class="col-md-6 fv-row">
 
-                            <label class="fs-5 fw-bold mb-2">Button URL</label>
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="phone_inp" name="price_after_discount"
-                                       placeholder="example" value="{{ old('button_url') }}">
-                                <label for="phone_inp">Button URL</label>
-                            </div>
-                            @error('button_url')
+                        <div class="col-md-6 fv-row" id="children-categories-container">
+                            <label class="fs-5 fw-bold mb-2">Type</label>
+                            <select class="form-select" name="type" data-control="select2" multiple
+                                    data-placeholder="Select an option">
+                                <option value="header">Home-Header</option>
+                                <option value="body">Home-Body</option>
+                            </select>
+
+                            @error('type')
                             <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>

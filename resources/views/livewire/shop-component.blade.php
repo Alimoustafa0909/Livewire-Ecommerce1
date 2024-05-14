@@ -137,18 +137,16 @@
                                             </span>
                                             </div>
                                             <div class="product-price">
-                                                <span>${{$product->regular_price}}</span>
-{{--                                                <span class="old-price">${{$product->regular_price}}</span>--}}
+                                                <span>${{$product->price}}</span>
 
-                                                {{--                                            <span class="old-price">{{$product->regular_price}}</span>--}}
                                             </div>
                                             <div class="product-action-1 show">
                                                 @if($wishItems->contains($product->id))
                                                     <a aria-label="Remove From Wishlist" class="action-btn hover-up wishlisted" href="#" wire:click.prevent="removeFromWishlist({{$product->id}})"  ><i class="fi-rs-heart"></i></a>
                                                 @else
-                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="storeToWishlist({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="storeToWishlist({{$product->id}},'{{$product->name}}',{{$product->price}})"><i class="fi-rs-heart"></i></a>
                                                 @endif
-                                                <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-shopping-bag-add"></i></a>
+                                                <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->price}})"><i class="fi-rs-shopping-bag-add"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +230,7 @@
                                 </div>
                                 <div class="content pt-10">
                                     <h5><a href="product-details.html">{{$new_product->name}}</a></h5>
-                                    <p class="price mb-0 mt-5">{{$new_product->regular_price}}</p>
+                                    <p class="price mb-0 mt-5">{{$new_product->price}}</p>
                                     <div class="product-rate">
                                         <div class="product-rating" style="width:90%"></div>
                                     </div>
@@ -250,6 +248,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     </main>

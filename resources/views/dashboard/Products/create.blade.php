@@ -197,29 +197,16 @@
 
                             <label class="fs-5 fw-bold mb-2">Price</label>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="email_inp" name="regular_price"
-                                       placeholder="example" value="{{ old('regular_price') }}">
+                                <input type="text" class="form-control" id="email_inp" name="price"
+                                       placeholder="example" value="{{ old('price') }}">
                                 <label for="email_inp">Price</label>
                             </div>
-                            @error('regular_price')
+                            @error('price')
                             <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <!-- end   :: Column -->
-                        <!-- begin :: Column -->
-                        <div class="col-md-6 fv-row">
 
-                            <label class="fs-5 fw-bold mb-2">Price After Discount</label>
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="phone_inp" name="sale_price"
-                                       placeholder="example" value="{{ old('sale_price') }}">
-                                <label for="phone_inp">Price After Discount</label>
-                            </div>
-                            @error('sale_price')
-                            <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <!-- end   :: Column -->
 
                         <!-- begin :: Column -->
                         <div class="col-md-6 fv-row">

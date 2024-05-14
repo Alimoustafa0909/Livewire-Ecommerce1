@@ -21,9 +21,9 @@ class ShopComponent extends Component
     public function render()
     {
         if ($this->orderBy == 'Price: Low to High') {
-            $products = Product::orderBy('regular_price', 'ASC')->paginate($this->pageSize);
+            $products = Product::orderBy('price', 'ASC')->paginate($this->pageSize);
         } elseif ($this->orderBy == 'Price: High to Low') {
-            $products = Product::orderBy('regular_price', 'DESC')->paginate($this->pageSize);
+            $products = Product::orderBy('price', 'DESC')->paginate($this->pageSize);
         } elseif ($this->orderBy == 'Release Date') {
             $products = Product::orderBy('created_at', 'DESC')->paginate($this->pageSize);
         } else {

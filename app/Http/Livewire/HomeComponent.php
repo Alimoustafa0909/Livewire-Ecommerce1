@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Helpers;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Slider;
 use Livewire\Component;
 
 class HomeComponent extends Component
@@ -13,10 +14,20 @@ class HomeComponent extends Component
     {
         $categories = Category::all();
         $products = Product::all();
-        $featuerd_products= Product::where('featured',"=" ,'1' )->paginate(4);
+        $featuerd_products = Product::where('featured', "=", '1')->paginate(4);
         $new_products = Product::latest()->take(8)->get();
+        $HeaderSliders = Slider::where('type', 'header')->get();
+        $bodySliders = Slider::latest()->where('type', 'body')->first();
 
-        return view('livewire.home-component', compact('categories', 'products','featuerd_products','new_products'));
+        return view('livewire.home-component',
+            compact(
+                'categories',
+                'products',
+                'featuerd_products',
+                'new_products',
+                'HeaderSliders',
+                'bodySliders',
+            ));
     }
 
     public function storeToWishlist($product_id, $product_name, $product_price)

@@ -69,12 +69,11 @@ class Helpers
                 'order_id' => $order->id,
                 'product_id'=>$item->model->id,
                 'product_quantity'=> $item->qty,
-                'product_price'=> $item->model->regular_price
+                'product_price'=> $item->model->price
             ]);
 
 
         }
-
 
 
         Cart::destroy();

@@ -44,7 +44,7 @@
                                         <td class="product-des product-name">
                                             <h5 class="product-name"><a href="product-details.html">{{$item->model->name}}</a></h5>
                                         </td>
-                                        <td class="price" data-title="Price"><span>${{number_format($item->model->sale_price)}} </span></td>
+                                        <td class="price" data-title="Price"><span>${{number_format($item->model->price)}} </span></td>
                                         <td class="text-center" data-title="Stock">
                                             <div class="detail-qty border radius  m-auto">
                                                 <a href="#" class="qty-down" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-down"></i></a>
@@ -53,7 +53,7 @@
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
-                                            <span>${{ number_format($item->model->sale_price * $item->qty)}} </span>
+                                            <span>${{ number_format($item->model->price * $item->qty)}} </span>
                                         </td>
                                         <td class="action"  data-title="Remove" wire:click.prevent="DeleteItem('{{$item->rowId}}')"><a href="#" class="text-muted"><i
                                                         class="fi-rs-trash"></i></a></td>

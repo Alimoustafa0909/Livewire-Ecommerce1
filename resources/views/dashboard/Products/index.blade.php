@@ -51,7 +51,6 @@
                     <th>Name</th>
                     <th>short_description</th>
                     <th>Price</th>
-                    <th>Price After Discount</th>
                     <th>Stock Quantity</th>
                     <th>SKU</th>
                     <th>Actions</th>
@@ -85,12 +84,10 @@
                         </td>
                         <!--end::description=-->
                         <!--begin::price=-->
-                        <td>
-                            {{ $product->regular_price }}
-                        </td>
+
                         <!--end::price=-->
                         <!--begin::price after discoun=-->
-                        <td>{{ $product->sale_price }}</td>
+                        <td>{{ $product->price }}</td>
                         <td>{{ $product->quantity }}</td>
                         <td>{{ $product->SKU }}</td>
                         <!--end::price after discount=-->

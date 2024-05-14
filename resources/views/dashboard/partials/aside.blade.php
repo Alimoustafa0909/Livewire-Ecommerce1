@@ -194,23 +194,13 @@
 									</span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-{{--                            <a class="menu-link" href="{{route('dashboard.sliders.index')}}">--}}
+                            <a class="menu-link" href="{{route('dashboard.sliders.index')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                                <span class="menu-title">Sliders List</span>
+                                <span class="menu-title">Sliders </span>
                             </a>
                         </div>
-                        <div class="menu-item">
-{{--                            <a class="menu-link" href="{{route('dashboard.sliders.create')}}">--}}
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-                                <span class="menu-title">New Slider</span>
-                            </a>
-                        </div>
-
-                    </div>
 
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -284,3 +274,4 @@
 </div>
 </div>
 <!--end::Aside-->
+</div>

@@ -32,7 +32,7 @@
         <!-- begin :: Card body -->
         <div class="card-body p-0">
             <!-- begin :: Form -->
-            <form action="{{ route('dashboard.products.update',$product->id) }}" class="form" method="POST" enctype="multipart/form-data" >
+            <form action="{{ route('dashboard.products.update',[$product->id]) }}" class="form" method="POST" enctype="multipart/form-data" >
             @csrf
             @method('PUT')
             <!-- begin :: Card header -->

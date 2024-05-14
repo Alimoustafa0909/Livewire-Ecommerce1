@@ -43,9 +43,12 @@ class CategoryComponent extends Component
 
     public function render()
     {
+        $new_products = Product::latest()->take(3)->get();
+
         $category = Category::where('slug', $this->slug)->first();
         $category_id = $category->id;
         $category_name = $category->name;
+
 
         if ($this->orderBy == 'Price: Low to High') {
             $products = Product::where('category_id', $category_id)->orderBy('regular_price', 'ASC')->paginate($this->pageSize);
@@ -57,7 +60,7 @@ class CategoryComponent extends Component
             $products = Product::where('category_id', $category_id)->paginate($this->pageSize);
         }
         $categories = Category::orderBy('name', 'ASC')->get();
-        return view('livewire.category-component', compact('products', 'categories', 'category_name'));
+        return view('livewire.category-component', compact('products', 'categories', 'category_name', 'new_products'));
     }
 
     public function storeToWishlist($product_id, $product_name, $product_price)

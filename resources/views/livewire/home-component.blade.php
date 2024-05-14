@@ -5,51 +5,41 @@
                 {{ session('status') }}
             </div>
         @endif
-        <section class="home-slider position-relative pt-50">
+        @if($HeaderSliders)
+
+
+            <section class="home-slider position-relative pt-90">
             <div class="hero-slider-1 dot-style-1 dot-style-1-position-1">
+                @foreach($HeaderSliders as $slider)
                 <div class="single-hero-slider single-animation-wrap">
                     <div class="container">
                         <div class="row align-items-center slider-animated-1">
                             <div class="col-lg-5 col-md-6">
                                 <div class="hero-slider-content-2">
-                                    <h4 class="animated">Trade-in offer</h4>
-                                    <h2 class="animated fw-900">Supper value deals</h2>
-                                    <h1 class="animated fw-900 text-brand">On all products</h1>
-                                    <p class="animated">Save more with coupons & up to 70% off</p>
+                                    <h4 class="animated">{{$slider->title}}</h4>
+
+                                    <h1 class="animated fw-900 text-7">{{$slider->body}}</h1>
+
                                     <a class="animated btn btn-brush btn-brush-3" href="{{route('shop')}}"> Shop Now </a>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-6">
-                                <div class="single-slider-img single-slider-img-1">
-                                    <img class="animated slider-1-1" src="assets/imgs/slider/slider-1.png" alt="">
+                                <div class="single-item js-fullheight">
+                                    <img class="animated slider-1-1" src="{{asset('storage/images/Sliders/' . $slider['image'])}}" alt="">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="single-hero-slider single-animation-wrap">
-                    <div class="container">
-                        <div class="row align-items-center slider-animated-1">
-                            <div class="col-lg-5 col-md-6">
-                                <div class="hero-slider-content-2">
-                                    <h4 class="animated">Hot promotions</h4>
-                                    <h2 class="animated fw-900">Fashion Trending</h2>
-                                    <h1 class="animated fw-900 text-7">Great Collection</h1>
-                                    <p class="animated">Save more with coupons & up to 20% off</p>
-                                    <a class="animated btn btn-brush btn-brush-2" href="product-details.html"> Discover Now </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-7 col-md-6">
-                                <div class="single-slider-img single-slider-img-1">
-                                    <img class="animated slider-1-2" src="assets/imgs/slider/slider-2.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="slider-arrow hero-slider-1-arrow"></div>
         </section>
+
+
+            @else
+            <h1>hello</h1>
+            @endif
         <section class="featured section-padding position-relative">
             <div class="container">
                 <div class="row">
@@ -111,6 +101,7 @@
                 <div class="tab-content wow fadeIn animated" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                         <div class="row product-grid-4">
+
                             @php
                                 $wishItems= Cart::instance('wishlist')->content()->pluck('id');
                             @endphp
@@ -141,16 +132,15 @@
                                         <h2><a href="{{route('product.details',$product->slug)}}">{{$product->name}}</a></h2>
 
                                         <div class="product-price">
-                                            <span>${{$product->sale_price}} </span>
-                                            <span class="old-price">${{$product->regular_price}}</span>
+                                            <span>${{$product->price}} </span>
                                         </div>
                                         <div class="product-action-1 show">
                                             @if($wishItems->contains($product->id))
                                                 <a aria-label="Remove From Wishlist" class="action-btn hover-up wishlisted" href="#" wire:click.prevent="removeFromWishlist({{$product->id}})"  ><i class="fi-rs-heart"></i></a>
                                             @else
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="storeToWishlist({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-heart"></i></a>
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="storeToWishlist({{$product->id}},'{{$product->name}}',{{$product->price}})"><i class="fi-rs-heart"></i></a>
                                             @endif
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-shopping-bag-add"></i></a>
+                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->price}})"><i class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +148,7 @@
                             @endforeach
 
                         </div>
+
                         <!--End product-grid-4-->
                     </div>
                     <!--En tab one (Featured)-->
@@ -191,16 +182,15 @@
                                         <h2><a href="{{route('product.details',$product->slug)}}">{{$product->name}}</a></h2>
 
                                         <div class="product-price">
-                                            <span>${{$product->sale_price}} </span>
-                                            <span class="old-price">${{$product->regular_price}}</span>
+                                            <span>${{$product->price}} </span>
                                         </div>
                                         <div class="product-action-1 show">
                                             @if($wishItems->contains($product->id))
                                                 <a aria-label="Remove From Wishlist" class="action-btn hover-up wishlisted" href="#" wire:click.prevent="removeFromWishlist({{$product->id}})"  ><i class="fi-rs-heart"></i></a>
                                             @else
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="storeToWishlist({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-heart"></i></a>
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="storeToWishlist({{$product->id}},'{{$product->name}}',{{$product->price}})"><i class="fi-rs-heart"></i></a>
                                             @endif
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-shopping-bag-add"></i></a>
+                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->price}})"><i class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -214,21 +204,33 @@
                     <!--En tab two (Popular)-->
                     <!--En tab three (New added)-->
                 </div>
+
                 <!--End tab-content-->
             </div>
+
         </section>
+            @if($bodySliders)
+
         <section class="banner-2 section-padding pb-0">
             <div class="container">
                 <div class="banner-img banner-big wow fadeIn animated f-none">
-                    <img src="assets/imgs/banner/banner-4.png" alt="">
+
+                    <img src="{{asset('storage/images/Sliders/' . $bodySliders['image'])}}" alt="">
                     <div class="banner-text d-md-block d-none">
-                        <h4 class="mb-15 mt-40 text-brand">Repair Services</h4>
-                        <h1 class="fw-600 mb-20">We're an Apple <br>Authorised Service Provider</h1>
-                        <a href="shop.html" class="btn">Learn More <i class="fi-rs-arrow-right"></i></a>
+                        <h4 class="mb-15 mt-40 text-brand">{{$bodySliders->title}}</h4>
+                        <h1 class="fw-600 mb-20">{{$bodySliders->body}}</h1>
+                        <a href="{{route('shop')}}" class="btn">Learn More <i class="fi-rs-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
         </section>
+            @else
+                <section class="banner-2 section-padding pb-0">
+                </section>
+
+            @endif
+
+
         <section class="popular-categories section-padding mt-15 mb-25">
             <div class="container wow fadeIn animated">
                 <h3 class="section-title mb-20"><span>Popular</span> Categories</h3>
@@ -258,7 +260,7 @@
                         <div class="product-cart-wrap small hover-up">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a href="product-details.html">
+                                    <a href="{{route('product.details',$product->slug)}}">
                                         <img class="default-img" src="{{ asset('storage/images/products/' . $product['image']) }}" alt="">
                                     </a>
                                 </div>
@@ -273,14 +275,13 @@
                                 </div>
                             </div>
                             <div class="product-content-wrap">
-                                <h2><a href="product-details.html">{{$product->name}}</a></h2>
+                                <h2><a href="{{route('product.details',$product->slug)}}">{{$product->name}}</a></h2>
                                 <div class="rating-result" title="90%">
                                     <span>
                                     </span>
                                 </div>
                                 <div class="product-price">
-                                    <span>${{$product->sale_price}}</span>
-                                    <span class="old-price">${{$product->regular_price}}</span>
+                                    <span>${{$product->price}}</span>
                                 </div>
                             </div>
                         </div>
@@ -330,3 +331,4 @@
 
     </main>
 </div>
+

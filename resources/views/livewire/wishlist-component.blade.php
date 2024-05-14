@@ -72,8 +72,7 @@
                                             </span>
                                     </div>
                                     <div class="product-price">
-                                        <span>${{$item->model->regular_price}}</span>
-                                        {{--                                            <span class="old-price">{{$product->regular_price}}</span>--}}
+                                        <span>${{$item->model->price}}</span>
                                     </div>
                                     <div class="product-action-1 show">
 
