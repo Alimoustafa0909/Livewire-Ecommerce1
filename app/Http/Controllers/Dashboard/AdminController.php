@@ -1,24 +1,31 @@
 <?php
 
+// App\Http\Controllers\Dashboard\Admins\AdminController.php
+
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Services\Dashboard\Admin\AdminServiceInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    protected $adminService;
+
+    public function __construct(AdminServiceInterface $adminService)
+    {
+        $this->adminService = $adminService;
+    }
+
     public function index()
     {
-        $admins = Admin::all();
+        $admins = $this->adminService->getAllAdmins();
         return view('dashboard.admins.index', compact('admins'));
     }
 
     public function show(Admin $admin)
     {
-
         return view('dashboard.admins.show', compact('admin'));
     }
 
@@ -29,18 +36,8 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $attributes = $request->validate([
-            'name' => ['required'],
-            'phone' => ['required', 'unique:admins'],
-            'email' => ['required', 'unique:admins'],
-        ]);
-
-        $attributes['password'] = Hash::make($attributes['phone']);
-
-        Admin::create($attributes);
-
+        $this->adminService->createAdmin($request->validated());
         return redirect()->route('dashboard.admins.index')->with('success_message', 'The new admin has been added successfully');
-
     }
 
     public function create()
@@ -50,28 +47,18 @@ class AdminController extends Controller
 
     public function update(Admin $admin, Request $request)
     {
-        $attributes = $request->validate([
-            'name' => ['required'],
-            'phone' => ['required', 'unique:admins,phone,' . $admin->id],
-            'email' => ['required', 'unique:admins,email,' . $admin->id, 'email'],
-        ]);
-
-        $admin->update($attributes);
-
+        $this->adminService->updateAdmin($admin, $request->validated());
         return redirect()->route('dashboard.admins.index')->with('success_message', 'The admin has been updated successfully');
-
     }
 
     public function destroy(Admin $admin)
     {
-
-        $admin->delete();
+        $this->adminService->deleteAdmin($admin);
         return redirect()->route('dashboard.admins.index')->with('success_message', 'The admin has been deleted successfully');
     }
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect()->route('admins.login');
+        // Implement logout logic here
     }
 }

@@ -1,32 +1,32 @@
 <?php
 
+// App\Http\Controllers\Dashboard\UserController.php
+
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Services\Dashboard\User\UserServiceInterface;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserServiceInterface $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
-        $users = User::paginate(3);
+        $users = $this->userService->getAllUsers();
         return view('dashboard.users.index', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $attributes = $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'unique:users', 'max:255'],
-            'password' => ['required', 'min:8'],
-        ]);
-
-        Hash::make($attributes['password']);
-
-        User::create($attributes);
-
+        $this->userService->createUser($request->validated());
         return redirect()->route('dashboard.users.index')->with('success_message', 'The user has been created successfully');
     }
 
@@ -40,19 +40,10 @@ class UserController extends Controller
         return view('dashboard.users.edit', compact('user'));
     }
 
-    public function update(request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $attributes = $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email,' . $user->id, 'max:255'],
-            'phone' => ['required', 'unique:users,phone,' . $user->id, 'max:15'],
-        ]);
-
-        $attributes['password'] = $attributes['phone'];
-
-        $user->update($attributes);
-
-        return redirect()->route('dashboard.users.index')->with('success_message', 'The user has been Updated successfully');
+        $this->userService->updateUser($user, $request->validated());
+        return redirect()->route('dashboard.users.index')->with('success_message', 'The user has been updated successfully');
     }
 
     public function show(User $user)
@@ -62,10 +53,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('dashboard.users.index')->with('success_message', 'The user has been Deleted successfully');
-
+        $this->userService->deleteUser($user);
+        return redirect()->route('dashboard.users.index')->with('success_message', 'The user has been deleted successfully');
     }
-
-
 }

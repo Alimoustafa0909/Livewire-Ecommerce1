@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Helpers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Services\Dashboard\Category\CategoryServiceInterface;
 
 class CategoryController extends Controller
 {
+    protected $categoryService;
+
+    public function __construct(CategoryServiceInterface $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index()
     {
-        $categories = Category::paginate(6);
+        $categories = $this->categoryService->getAllCategories();
         return view('dashboard.categories.index', compact('categories'));
     }
 
@@ -22,45 +29,31 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAllCategories();
         return view('dashboard.categories.edit', compact('category', 'categories'));
     }
 
-
     public function store(CategoryRequest $request)
     {
-
-        $attributes = $request->validated();
-
-        $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'categories');
-
-        $category = Category::create($attributes);
-
-        foreach ($request->categories ?? [] as $categoryId)
-            Category::find($categoryId)->update($category->id);
-
-        return redirect()->route('dashboard.categories.index')->with('success_message', 'The category has been Added successfully');
-
+        $this->categoryService->createCategory($request->validated());
+        return redirect()->route('dashboard.categories.index')->with('success_message', 'The category has been added successfully');
     }
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAllCategories();
         return view('dashboard.categories.create', compact('categories'));
     }
 
     public function update(CategoryRequest $request, Category $category)
     {
-        $attributes = $request->validated();
-
-        $category->update($attributes);
-        return redirect()->route('dashboard.categories.index')->with('success_message', 'The category has been Added successfully');
+        $this->categoryService->updateCategory($category, $request->validated());
+        return redirect()->route('dashboard.categories.index')->with('success_message', 'The category has been updated successfully');
     }
 
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect()->route('dashboard.categories.index')->with('success_message', 'the category has been deleted successfully');
-
+        $this->categoryService->deleteCategory($category);
+        return redirect()->route('dashboard.categories.index')->with('success_message', 'The category has been deleted successfully');
     }
 }

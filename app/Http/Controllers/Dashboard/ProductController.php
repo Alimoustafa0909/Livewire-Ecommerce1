@@ -1,32 +1,32 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-;
 
-use App\Helpers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
-
+use App\Services\Dashboard\Product\ProductServiceInterface;
 
 class ProductController extends Controller
 {
+    protected $productService;
+
+    public function __construct(ProductServiceInterface $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function index()
     {
-        $products = Product::paginate(6);
+        $products = $this->productService->getAllProducts();
         return view('dashboard.products.index', compact('products'));
     }
 
     public function store(ProductRequest $request)
     {
-        $attributes = $request->validated();
-
-        $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'products');
-        Product::create($attributes);
-
-        return redirect()->route('dashboard.products.index')->with('success_message', 'The product has been Added successfully');
+        $this->productService->createProduct($request);
+        return redirect()->route('dashboard.products.index')->with('success_message', 'The product has been added successfully');
     }
 
     public function create()
@@ -40,15 +40,10 @@ class ProductController extends Controller
         return view('dashboard.products.edit', compact('product'));
     }
 
-    public function update(ProductRequest $request , Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        $attributes = $request->validated();
-        if (request()->file('image'))
-            $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'products');
-
-        $product->update($attributes);
-
-        return redirect()->route('dashboard.products.index')->with('success_message', 'The product has been Updated successfully');
+        $this->productService->updateProduct($request, $product);
+        return redirect()->route('dashboard.products.index')->with('success_message', 'The product has been updated successfully');
     }
 
     public function show(Product $product)
@@ -58,8 +53,7 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('dashboard.products.index')->with('success_message', 'The Product has been Deleted successfully');
-
+        $this->productService->deleteProduct($product);
+        return redirect()->route('dashboard.products.index')->with('success_message', 'The product has been deleted successfully');
     }
 }

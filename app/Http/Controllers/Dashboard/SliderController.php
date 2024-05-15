@@ -1,36 +1,33 @@
 <?php
 
+// App\Http\Controllers\Dashboard\SliderController.php
+
 namespace App\Http\Controllers\Dashboard;
 
-use App\Helpers;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
-use Illuminate\Http\Request;
+use App\Services\Dashboard\Slider\SliderServiceInterface;
 
 class SliderController extends Controller
 {
+    protected $sliderService;
+
+    public function __construct(SliderServiceInterface $sliderService)
+    {
+        $this->sliderService = $sliderService;
+    }
 
     public function index()
     {
-        $sliders = Slider::paginate(3);
+        $sliders = $this->sliderService->getAllSliders();
         return view('dashboard.sliders.index', compact('sliders'));
     }
 
-    public function store(Request $request)
+    public function store(SliderRequest $request)
     {
-
-        $attributes = $request->validate([
-            'title' => ['max:255'],
-            'body' => ['max:255'],
-            'image' => ['required', 'image'],
-            'type'=> ['required']
-        ]);
-
-        $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'Sliders');
-
-        Slider::create($attributes);
-
-        return redirect()->route('dashboard.sliders.index')->with('success_message', 'The slider has been Added successfully');
+        $this->sliderService->createSlider($request->validated());
+        return redirect()->route('dashboard.sliders.index')->with('success_message', 'The slider has been added successfully');
     }
 
     public function create()
@@ -43,21 +40,10 @@ class SliderController extends Controller
         return view('dashboard.sliders.edit', compact('slider'));
     }
 
-    public function update(request $request, Slider $slider)
+    public function update(SliderRequest $request, Slider $slider)
     {
-        $attributes = $request->validate([
-            'title' => ['max:255'],
-            'body' => ['max:255'],
-            'image' => ['image'],
-        ]);
-
-
-        if (request()->file('image'))
-            $attributes['image'] = (new Helpers)->uploadImage($request->file('image'), 'Sliders');
-
-        $slider->update($attributes);
-
-        return redirect()->route('dashboard.sliders.index')->with('success_message', 'The slider has been Updated successfully');
+        $this->sliderService->updateSlider($slider, $request->validated());
+        return redirect()->route('dashboard.sliders.index')->with('success_message', 'The slider has been updated successfully');
     }
 
     public function show(Slider $slider)
@@ -67,8 +53,7 @@ class SliderController extends Controller
 
     public function destroy(Slider $slider)
     {
-        $slider->delete();
-        return redirect()->route('dashboard.sliders.index')->with('success_message', 'The Slider has been Deleted successfully');
-
+        $this->sliderService->deleteSlider($slider);
+        return redirect()->route('dashboard.sliders.index')->with('success_message', 'The slider has been deleted successfully');
     }
 }
